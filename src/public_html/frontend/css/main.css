@@ -1,0 +1,141 @@
+.group-list-notifs {
+    
+    
+    padding: 7px; border-radius: 4px; background: #ddd; font-family: Josefin Slab;
+   font-size: 15px;
+   font-weight: bold;
+}
+
+
+.group-list-name {
+    
+    font-family: Josefin Slab;
+   font-size: 15px;
+   font-weight: bold;
+    
+}
+
+
+.group-list-profile-img {
+    border-radius: 5px;
+}
+
+.group-list-div {
+padding: 0 0 0 0;
+}
+
+
+.main-body-div {
+    max-width: 1100px; width: 100%; display: table; margin: 0 auto;
+}
+
+.post-editor {
+    width: 100%; display: table; margin: 0 auto; margin-bottom: 20px; background: white; padding-top: 17px; padding-bottom: 17px; border-radius: 5px;
+}
+
+.group-list-notif-1 {
+    padding-top: 10px;
+}
+
+.group-list-notif-2 {
+    border-radius: 5px;
+}
+
+.post-username {
+    background: #fff; padding-left: 15px; padding-top: 6px; padding-bottom: 16px; border-radius: 5px; margin-bottom: -10px; font-family: Josefin Slab;
+   font-size: 18px;
+   font-weight: bold;
+}
+
+
+.group-list-body {
+    padding-left: 20px;
+}
+
+.logo-heading-1 {
+    font-family: Eczar;
+   font-size: 32px;
+                      
+   font-weight: bold;
+}
+
+.post-img-1 {
+    border-radius: 0px; margin-bottom: 50px; width: 100%;
+}
+
+.group-list-row {
+    width: 100%; padding: 0 0 0 0; margin: 0 0 0 0; border-bottom: 2px solid #ddd; padding-bottom: 5px; margin-bottom: 20px;
+}
+
+.post-owner-img {
+    margin-left: -20px; border-radius: 5px;
+}
+
+.current-user-img {
+    margin-left: 10px;  border-radius: 5px; 
+}
+
+.logo-heading-2 {
+    color: #bdbdbd;
+    
+}
+
+.writer-profile-img {
+    margin-left: -20px; border-radius: 5px;
+}
+
+.new-group-1 {
+    margin-left: 10px;   font-family: Josefin Slab; font-size: 15px; font-weight: bold;
+}
+
+.new-group-2 {
+     border-radius: 5px; 
+}
+
+.logo-heading-3 {
+    color: #bdbdbd; font-size: 24px;
+}
+
+.nav-head {
+    background: #ffffd1; width: 100%; margin-top: -40px; margin-bottom: 40px; border-bottom: 2px solid #ddd; padding-top: 10px; padding-bottom: 10px;
+}
+
+.nav-main-row {
+    max-width: 1100px; width: 100%; display: table; margin: 0 auto;
+}
+
+.dashboard-body {
+    background-color: #ffd; padding-top: 0px; margin-top: 40px;
+}
+
+.group-list-membercount {
+    
+    font-family: Josefin Slab;
+   font-size: 15px;
+   font-weight: bold;
+    color: black;
+    
+}
+
+.search-main {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: Josefin Slab;
+   font-size: 15px;
+    font-weight: bold;
+    width: 250px;
+    padding: 7px;
+    
+}
+
+
+.input-style-2 {
+    display: table; margin: 0 auto; margin-top: 20px;    font-family: Josefin Slab;
+   font-size: 13px;
+   font-weight: bold;
+}
+
+
+.input-style-1 {
+    border-radius: 5px; display: table; margin: 0 auto; width: 40px; height: 40px;
+}
