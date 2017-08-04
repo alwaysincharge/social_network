@@ -194,12 +194,115 @@
                     
                         <a><img src="photo-camera.svg" style="width: 20px; margin-left: 10px;"  /></a>
                     
-                        <a><img src="cross.svg" style="width: 20px; margin-left: 10px;"  /></a>
+                        <a><img src="cross.svg" style="width: 20px; margin-left: 10px;"  /></a> <br><br>
                     
-                      <!--  <input id="submit" class="btn new-group-1" type="submit" style="margin-left: 0px;" value="POST"> --><br><br><br><br><br><br><br><br><br>
+                      <!--  <input id="submit" class="btn new-group-1" type="submit" style="margin-left: 0px;" value="POST"> -->
+                    
+                    
                     
                 
-                    
+                                            <div id="areas2">
+                                               
+                                                
+                                           <!--     <div class="row">
+                                                
+                                                    
+                                                    <div class=\"col-xs-2\">
+                                                        
+                                                    <a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" style="chat-left-1"  /></a>
+                                                    
+                                                    </div>
+                                                    
+                                                    <div class="col-xs-10">
+                                                    
+                                                                <div class=\"talk-bubble tri-right left-top\" style=\"chat-left-2\">
+  <div class=\"talktext\">
+    <p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
+  </div>
+</div>
+                                                    </div>
+                                                
+                                                
+                                                </div>  -->
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                <!--
+                                                                                                <div class="row">
+                                                
+                                                    
+                                                    <div class="col-xs-2">
+                                                        
+                                                        <a><img src="tumblr_oonx42GBY31tl2cbeo1_500.jpg" style="border-radius: 3px; width: 40px; height: 40px; margin-left: 10px; float: right;"  /></a>
+                                                    
+                                                    </div>
+                                                    
+                                                    <div class="col-xs-10">
+                                                    
+                                                                <div class="talk-bubble tri-right left-top" style=" margin-top: 0px; margin-left: 0px;">
+  <div class="talktext">
+    <p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
+  </div>
+</div>
+                                                    </div>
+                                                
+                                                
+                                                </div>
+                                                
+                                                
+                                                --->
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                                                                <div class="row">
+                                                
+                                                    
+                                                
+                                                    
+                                                    <div class="col-xs-10">
+                                                    
+                                                                <div class="talk-bubble1 tri-right1 left-top1" class="chat-right-1">
+  <div class="talktext1">
+    <p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
+  </div>
+</div>
+                                                    </div>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                        <div class="col-xs-2">
+                                                        
+                                                        <a><img src="tumblr_oonx42GBY31tl2cbeo1_500.jpg" class="chat-right-2"  /></a>
+                                                    
+                                                    </div>
+                                                
+                                                
+                                                </div> 
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+            
                 
                 </div>
                 
@@ -216,8 +319,7 @@
                         
                         
                         
-                             <div id="areas2">
-                        
+     
                         
                         
                         </div>                               
@@ -643,10 +745,104 @@
                 
               lastTimeID = result.id;
                 
-              html += '<div><p>(' + result.id + ') ' + result.name + '</p></div>';
+        //      html += '<div><p>(' + result.id + ') ' + result.name + '</p></div>';
+                
+                if (result.id % 2 === 0)  {
+                    
+                    
+              html += '<div class=\"row\">';
+                
+              html += '<div class=\"col-xs-2\">';
+                
+              html +=  '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-left-1\"  /></a>';  
+                
+              html += '</div>';
+                
+              html += '<div class=\"col-xs-10\">';
+                
+              html += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
+                
+              html += '<div class=\"talktext\">';   
+                
+              html += '<p>' + result.name + '</p>';
+                
+              html += ' </div></div></div></div>';       
+                    
+                } else {
+                    
+              html += '<div class=\"row\">';
+                
+              html += '<div class=\"col-xs-10\">';
+                
+              html += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
+                
+              html += '<div class=\"talktext1\">';   
+                
+              html += '<p>' + result.name + '</p>';
+                
+              html += ' </div></div></div>';
+                    
+              html += '<div class=\"col-xs-2\">';
+                
+              html +=  '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-right-2\"  /></a>';  
+                
+              html += '</div>';
+    
+              html += '</div>';
+    
+    
+    
+    
+                    
+                    
+                }
+                
+             
       
             }
       
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                 
+                                                
+                                                    
+                                                    
+                                                        
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                                
+  
+ 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
             if (tsutsus === 1) {
                 
@@ -654,12 +850,21 @@
                 
             } else {
                 
-             $('#areas2').prepend(html);   
+                
+                var new_item = $(html).hide();
+                $('#areas2').prepend(new_item);
+//parent.append(new_item);
+new_item.show('normal');
+                
+                
+         //    $('#areas2').prepend(html).hide().show('slow');   
+                
+                
             }
           
             
     
-            setTimeout(startPostLoop, 500); 
+            setTimeout(startPostLoop, 50); 
             
             
         }
@@ -714,7 +919,25 @@
                 
               firstTimeID = result2.id;
                 
-              html2 += '<div><p style=\"background: red;\">(' + result2.id + ') ' + result2.name + '</p></div>';
+            //  html2 += '<div><p style=\"background: red;\">(' + result2.id + ') ' + result2.name + '</p></div>';
+               
+              html2 += '<div class=\"row\">';
+                
+              html2 += '<div class=\"col-xs-2\">';
+                
+              html2 +=  '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-left-1\"  /></a>';  
+                
+              html2 += '</div>';
+                
+              html2 += '<div class=\"col-xs-10\">';
+                
+              html2 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
+                
+              html2 += '<div class=\"talktext\">';   
+                
+              html2 += '<p>' + result2.name + '</p>';
+                
+              html2 += ' </div></div></div></div>';    
       
            }
       

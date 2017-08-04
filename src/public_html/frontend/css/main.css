@@ -80,6 +80,15 @@ padding: 0 0 0 0;
     
 }
 
+.chat-left-1 {
+    border-radius: 3px; width: 40px; height: 40px; margin-left: 10px; float: right;
+}
+
+
+.chat-left-2 {
+     margin-top: 0px; margin-left: 0px;
+}
+
 .writer-profile-img {
     margin-left: -20px; border-radius: 5px;
 }
@@ -138,4 +147,149 @@ padding: 0 0 0 0;
 
 .input-style-1 {
     border-radius: 5px; display: table; margin: 0 auto; width: 40px; height: 40px;
+}
+
+
+.chat-right-1 {
+     margin-top: 0px; margin-right: -10px; float: right;
+}
+
+.chat-right-2 {
+    border-radius: 3px; width: 40px; height: 40px; margin-left: -10px; float: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CSS talk bubble */
+.talk-bubble {
+	margin: 20px;
+  display: inline-block;
+  position: relative;
+	width: 300px;
+	height: auto;
+	background-color: white;
+    border-radius: 3px;
+    margin-top: 0px;
+    font-family: Josefin Slab;
+   font-size: 15px;
+    font-weight: bold;
+}
+
+
+/* Right triangle placed top left flush. */
+.tri-right.border.left-top:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: -40px;
+	right: auto;
+  top: -8px;
+	bottom: auto;
+	border: 32px solid;
+	border-color: #666 transparent transparent transparent;
+}
+.tri-right.left-top:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: -20px;
+	right: auto;
+  top: 0px;
+	bottom: auto;
+	border: 22px solid;
+	border-color: white transparent transparent transparent;
+}
+/* Right triangle, left side slightly down */
+
+
+/* talk bubble contents */
+.talktext{
+  padding: 1em;
+	text-align: left;
+  line-height: 1.5em;
+    
+}
+.talktext p{
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+
+
+
+
+
+
+
+
+
+/* CSS talk bubble */
+.talk-bubble1 {
+	margin: 20px;
+  display: inline-block;
+  position: relative;
+	width: 300px;
+	height: auto;
+	background-color: white;
+    border-radius: 3px;
+    float: right;
+    margin-top: 0px;
+    font-family: Josefin Slab;
+   font-size: 15px;
+    font-weight: bold;
+}
+
+
+/* Right triangle placed top left flush. */
+.tri-right1.border1.left-top1:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  right: -40px;
+	left: auto;
+  top: -8px;
+	bottom: auto;
+	border: 32px solid;
+	border-color: white transparent transparent transparent;
+}
+.tri-right1.left-top1:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  right: -20px;
+	left: auto;
+  top: 0px;
+	bottom: auto;
+	border: 22px solid;
+	border-color: white transparent transparent transparent;
+}
+/* Right triangle, left side slightly down */
+
+
+/* talk bubble contents */
+.talktext1{
+  padding: 1em;
+	text-align: left;
+  line-height: 1.5em;
+}
+.talktext1 p{
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
 }
