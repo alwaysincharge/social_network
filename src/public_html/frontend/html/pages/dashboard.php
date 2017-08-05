@@ -595,7 +595,8 @@
 
     
     
-    // When the user reaches the bottom, get more data from the database.
+      // When the user reaches the bottom, get more data from the database.
+    
       $(window).on("scroll", function() {
           
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -618,84 +619,56 @@
         // When you click eneter...
         $('#name').keypress(function(e) {
             
-     
-            
         if(e.which == 13) {
-        
+         // When enter is clicked, do not move to the next line.
+          //   e.preventDefault();
             
-        
-        var name = $("#name").val();
-            var nnn = $("#name").val().trim();
+
             
-            if (nnn != "") {
-            
-             $.ajax({
-        
-             url: "ajax.php",
-             type: "POST",
-             async: false,
-             data: {
-                 
-               "done": 1,
-               "name": name
-            
-             }, 
-            
-             success: function(data) {
-                 
-                $("#name").val(""); 
-               
-            
-             }
-        
-             }); } else {
-                 
-                  $("#name").val(""); 
-                 
-             }
-            
-            return e.which !== 13;
-        
+            sendAppend(e);
+
+          
         
     }
 });
-   //do some stuff
+   
           
 });
     
     
+    
+    
+    
+    
     var lastTimeID = 0;  
     
-     var firstTimeID = 0;  
+    var firstTimeID = 0; 
     
+     var lam = "n";
+    
+    var ty = 0;
+    
+    // When the page loads...
     $(document).ready(function(){
         
-        
+      // Display some stuff from the database and when the user reaches the bottom of the page, return more stuff.
       displayFromDatabasePagination();
         
-        
+        //Begin asking the database if new items have been submitted and retrieve and prepend them to the page.
         startPostLoop();
             
-
-        // Submit the chat data to database.
-        $("#submit").click(function(){
-        
-           
-        
-        });
-    
-      
-    
-        
+   
     });
     
     
    
     
     
-    
+   //Begin asking the database if new items have been submitted and retrieve and prepend them to the page.
    function startPostLoop(){
-    
+       
+       
+       //Fetch new chat data from the database.
        displayFromDatabase();                       
                            
    }
@@ -704,16 +677,15 @@
     
     
     
-    // Fetch chat data from the database in chunks.
+    // Fetch new chat data from the database.
     function displayFromDatabase(){
         
-        var name = $("#name").val();
             
         $.ajax({
         
         url: "ajax.php",
         type: "POST",
-        async: false,
+        async: true,
         data: {
             
             "melted": 1,
@@ -730,11 +702,13 @@
             
             var html = "";
             
-            var tsutsus;
+            var lastTimeIDzeroTest;
             
+            
+            //If lastTimeID is zero.
             if (lastTimeID === 0) {
                 
-                tsutsus = 1;
+                lastTimeIDzeroTest = 1;
                 
             }
             
@@ -743,11 +717,13 @@
                 
               var result = jsonData.allposts[i];
                 
+                
+              // For each row from the database, set the last processed id number to lastTimeID.
               lastTimeID = result.id;
                 
-        //      html += '<div><p>(' + result.id + ') ' + result.name + '</p></div>';
                 
-                if (result.id % 2 === 0)  {
+              // If the row's id is even.
+              if (result.id % 2 === 0)  {
                     
                     
               html += '<div class=\"row\">';
@@ -768,6 +744,8 @@
                 
               html += ' </div></div></div></div>';       
                     
+                  
+                // If the row's id is odd.  
                 } else {
                     
               html += '<div class=\"row\">';
@@ -789,82 +767,37 @@
               html += '</div>';
     
               html += '</div>';
-    
-    
-    
-    
-                    
-                    
+             
                 }
                 
-             
-      
             }
       
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-                 
-                                                
-                                                    
-                                                    
-                                                        
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                                
-  
- 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
-            if (tsutsus === 1) {
+     
+            // If lastTimeIDzeroTest is 1, implying the lastTimeID is zero...
+            if (lastTimeIDzeroTest === 1) {
                 
-                tsutsus = 3;
+                // Set lastTimeIDzeroTest to 2 so that next time the function runs, we know that lastTimeID is no longer zero. Prepend nothing to the page.
+                lastTimeIDzeroTest = 2;
                 
             } else {
                 
                 
-                var new_item = $(html).hide();
-                $('#areas2').prepend(new_item);
-//parent.append(new_item);
-new_item.show('normal');
+                // Return and prepend just parsed json from the database to the page. 
+                var new_items = $(html).hide();
                 
+                $('#areas2').prepend(new_items);
+
+                new_items.show('normal');
                 
-         //    $('#areas2').prepend(html).hide().show('slow');   
-                
-                
+    
             }
           
             
-    
-            setTimeout(startPostLoop, 50); 
+            // After the function runs successfully, run the function again after some milliseconds.
+            setTimeout(startPostLoop, 5000); 
             
             
         }
@@ -886,8 +819,8 @@ new_item.show('normal');
     
     
     
-    
-        function displayFromDatabasePagination(){
+    // Retrive old rows from database.
+    function displayFromDatabasePagination(){
         
     
             
@@ -895,7 +828,7 @@ new_item.show('normal');
         
         url: "ajax.php",
         type: "POST",
-        async: false,
+        async: true,
         data: {
             
             "felted": 1,
@@ -903,8 +836,8 @@ new_item.show('normal');
                 
         }, 
             
-        success: function(dd) {
             
+        success: function(dd) {
             
             var jsonData2 = JSON.parse(dd);
             
@@ -918,8 +851,6 @@ new_item.show('normal');
               var result2 = jsonData2.allposts1[i2];
                 
               firstTimeID = result2.id;
-                
-            //  html2 += '<div><p style=\"background: red;\">(' + result2.id + ') ' + result2.name + '</p></div>';
                
               html2 += '<div class=\"row\">';
                 
@@ -941,7 +872,7 @@ new_item.show('normal');
       
            }
       
-        //  alert(dd);
+        
           
           $('#areas2').append(html2);
     
@@ -957,6 +888,154 @@ new_item.show('normal');
     
     
     
+    function sendChatData(e, slate, name1){
+        
+        
+        
+     
+                  var dosome = function(data) {
+                      
+                      $("#" + data).html("sure");
+  
+};
+        
+        
+               // Send the value of the box to the databse.
+          //  var name = $("#name").val();
+            
+            var nameTrim = $("#name").val().trim();
+            
+            
+            // If the value of the chat box is not empty...
+            if (nameTrim != "") {
+            
+                 // After submitting, clear the chat box.
+                $("#name").val(""); 
+                 e.preventDefault();
+                
+             //Submit the form to the databse.
+             $.ajax({
+        
+             url: "ajax.php",
+             type: "POST",
+             async: true,
+             data: {
+                 
+               "done": 1,
+               "name": name1
+             },
+                 
+                 
+                 
+
+            
+           success: function(data) {
+               
+               
+              
+                 
+             //   $("#" + lam).html(data);
+                  
+                 if (data == 23) {
+                 dosome(slate);
+                // 
+                // $( '#target').html( resp.people[0].name );  
+                    // $("#" + lam).html("Hello <b>world</b>!"); 
+                   //  ty = 45;
+                 } else {
+
+             
+                 
+                 }
+                    
+                 
+                // After submitting, clear the chat box.
+                $("#name").val(""); 
+                 
+                 // When enter is clicked, do not move to the next line.
+             e.preventDefault();
+            
+             }, 
+    complete: function() {
+        // alert("#" + lam);
+
+          if (ty == 45 ) {
+// alert(ty + " " + lam);
+      // $("#" + lam).html("Hello <b>world</b>!"); 
+        }    
+    }  
+        
+             }); } else {
+                 
+                  $("#name").val(""); 
+                 
+             }
+       
+        // $("#" + lam).html("Hello <b>world</b>!");    
+   //  var data = "jnj";
+                         
+
+        
+    }
+    
+    
+    
+    
+    
+    
+     function sendAppend(e){
+        
+        
+        
+               // Send the value of the box to the databse.
+            var name = $("#name").val();
+            
+            var nameTrim = $("#name").val().trim();
+            
+           
+            // If the value of the chat box is not empty...
+            if (nameTrim != "") {
+
+                var html3 = '';
+                
+              html3 += '<div class=\"row\">';
+                
+              html3 += '<div class=\"col-xs-2\">';
+                
+              html3 +=  '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-left-1\"  /></a>';  
+                
+              html3 += '</div>';
+                
+              html3 += '<div class=\"col-xs-10\">';
+                
+              html3 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
+                
+              html3 += '<div class=\"talktext\">';   
+                
+              html3 += '<p>' + name + '</p><span id=\"' + lam + '\"></span>';
+                
+              html3 += ' </div></div></div></div>'; 
+                
+                
+                
+                     // Return and prepend just parsed json from the database to the page. 
+                var new_items1 = $(html3).hide();
+                
+                $('#areas2').prepend(new_items1);
+
+                new_items1.show('fast');
+                
+                
+                 //         setTimeout(sendChatData(e, lam, name), 5000000);   
+              sendChatData(e, lam, name);
+                
+                lam = lam + lam;
+             
+         } 
+         
+         
+        
+    }
 
 
  

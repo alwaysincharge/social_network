@@ -26,6 +26,8 @@ if(isset($_POST['done']))  {
     
     $result = mysqli_query($connection, $query);
     
+    echo 23;
+    
     exit();
     
     
