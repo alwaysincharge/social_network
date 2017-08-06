@@ -866,7 +866,7 @@
                 
               html2 += '<div class=\"talktext\">';   
                 
-              html2 += '<p>' + result2.name + '</p>';
+              html2 += '<p>' + result2.id + " () " + result2.name + '</p>';
                 
               html2 += ' </div></div></div></div>';    
       
@@ -888,6 +888,19 @@
     
     
     
+    
+    
+    
+                              var dosome2 = function(ee, slateslate, name1name1) {
+                  //    console.log("ijik");
+                             sendChatData(ee, slateslate, name1name1);
+                   //  alert(slateslate);
+  
+};
+    
+    
+    
+    
     function sendChatData(e, slate, name1){
         
         
@@ -898,6 +911,14 @@
                       $("#" + data).html("sure");
   
 };
+        
+        
+        
+        
+        
+        
+
+        
         
         
                // Send the value of the box to the databse.
@@ -938,13 +959,19 @@
                   
                  if (data == 23) {
                  dosome(slate);
+                  //   clearInterval(myVar);
                 // 
                 // $( '#target').html( resp.people[0].name );  
                     // $("#" + lam).html("Hello <b>world</b>!"); 
                    //  ty = 45;
                  } else {
 
-             
+                     
+                 //  var myVar =  setInterval(function(){ dosome2(e, slate, name1) }, 3000);
+                     
+               //  console.log("ijik");
+                   
+               
                  
                  }
                     
@@ -963,7 +990,35 @@
 // alert(ty + " " + lam);
       // $("#" + lam).html("Hello <b>world</b>!"); 
         }    
-    }  
+    },
+                 
+                    error : function(xhr, textStatus, errorThrown ) {
+
+  // alert("error");
+                $.ajax(this);
+              return;
+
+        if (textStatus == 'timeout') {
+        
+        }
+        if (xhr.status == 500) {
+            //handle error
+        } else {
+            //handle error
+        }
+    }
+                 
+ /*        error: function() {
+        // alert("#" + lam);
+
+                   // dosome2(e, slate, name1);
+     
+                
+       
+    } */          
+                 
+                 
+                 
         
              }); } else {
                  
