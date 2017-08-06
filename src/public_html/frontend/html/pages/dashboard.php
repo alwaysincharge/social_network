@@ -591,508 +591,216 @@
 <script type="text/javascript">
     
      
-    
-
-    
-    
-      // When the user reaches the bottom, get more data from the database.
-    
-      $(window).on("scroll", function() {
-          
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                
-              
-                displayFromDatabasePagination();
-                
-                
-            }
-          
-        });
-    
-    
+    // When the user reaches the bottom, get more data from the database.
+    $( window ).on( "scroll", function() {
+       if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
+          displayFromDatabasePagination();
+       }
+    } );
     
     
     
     //When you click the chat box...
-    $('#name').on("focus", function(){
-        
-        // When you click eneter...
-        $('#name').keypress(function(e) {
-            
-        if(e.which == 13) {
-         // When enter is clicked, do not move to the next line.
-          //   e.preventDefault();
-            
-
-            
-            sendAppend(e);
-
-          
-        
-    }
-});
-   
-          
-});
+    $( '#name' ).on( "focus", function() {
+       // When you click eneter...
+       $( '#name' ).keypress( function( e ) {
+          if ( e.which == 13 ) {
+             // Send message to page before even sending to the database.
+             sendAppend( e );
+          }
+       } );
+    } );
     
     
     
+    var lastTimeID = 0;
+    var firstTimeID = 0;
+    var lam = "n";
     
     
-    
-    var lastTimeID = 0;  
-    
-    var firstTimeID = 0; 
-    
-     var lam = "n";
-    
-    var ty = 0;
     
     // When the page loads...
-    $(document).ready(function(){
-        
-      // Display some stuff from the database and when the user reaches the bottom of the page, return more stuff.
-      displayFromDatabasePagination();
-        
-        //Begin asking the database if new items have been submitted and retrieve and prepend them to the page.
-        startPostLoop();
-            
-   
-    });
+    $( document ).ready( function() {
+       // Display some stuff from the database and when the user reaches the bottom of the page, return more stuff.
+       displayFromDatabasePagination();
+       //Begin asking the database if new items have been submitted and retrieve and prepend them to the page.
+       startPostLoop();
+    } );
     
     
-   
     
-    
-   //Begin asking the database if new items have been submitted and retrieve and prepend them to the page.
-   function startPostLoop(){
-       
-       
-       //Fetch new chat data from the database.
-       displayFromDatabase();                       
-                           
-   }
-    
-    
+    //Begin asking the database if new items have been submitted and retrieve and prepend them to the page.
+    function startPostLoop() {
+       //Fetch new chat data from the database when its available.
+       displayFromDatabase();
+    }
     
     
     
     // Fetch new chat data from the database.
-    function displayFromDatabase(){
-        
-            
-        $.ajax({
-        
-        url: "ajax.php",
-        type: "POST",
-        async: true,
-        data: {
-            
-            "melted": 1,
-            "laminate": lastTimeID
-                
-        }, 
-            
-        success: function(d) {
-            
-            
-            var jsonData = JSON.parse(d);
-            
-            var jsonLength = jsonData.allposts.length;
-            
-            var html = "";
-            
-            var lastTimeIDzeroTest;
-            
-            
-            //If lastTimeID is zero.
-            if (lastTimeID === 0) {
-                
+    function displayFromDatabase() {
+       $.ajax( {
+          url: "ajax.php",
+          type: "POST",
+          async: true,
+          data: {
+             "melted": 1,
+             "laminate": lastTimeID
+          },
+          success: function( d ) {
+             var jsonData = JSON.parse( d );
+             var jsonLength = jsonData.allposts.length;
+             var html = "";
+             var lastTimeIDzeroTest;
+             //If lastTimeID is zero.
+             if ( lastTimeID === 0 ) {
                 lastTimeIDzeroTest = 1;
-                
-            }
-            
-            
-            for (var i = 0; i < jsonLength; i++) {
-                
-              var result = jsonData.allposts[i];
-                
-                
-              // For each row from the database, set the last processed id number to lastTimeID.
-              lastTimeID = result.id;
-                
-                
-              // If the row's id is even.
-              if (result.id % 2 === 0)  {
-                    
-                    
-              html += '<div class=\"row\">';
-                
-              html += '<div class=\"col-xs-2\">';
-                
-              html +=  '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-left-1\"  /></a>';  
-                
-              html += '</div>';
-                
-              html += '<div class=\"col-xs-10\">';
-                
-              html += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-                
-              html += '<div class=\"talktext\">';   
-                
-              html += '<p>' + result.name + '</p>';
-                
-              html += ' </div></div></div></div>';       
-                    
-                  
-                // If the row's id is odd.  
+             }
+             for ( var i = 0; i < jsonLength; i++ ) {
+                var result = jsonData.allposts[ i ];
+                // For each row from the database, set the last processed id number to lastTimeID.
+                lastTimeID = result.id;
+                // If the row's id is even.
+                if ( result.id % 2 === 0 ) {
+                   html += '<div class=\"row\">';
+                   html += '<div class=\"col-xs-2\">';
+                   html += '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-left-1\"  /></a>';
+                   html += '</div>';
+                   html += '<div class=\"col-xs-10\">';
+                   html += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
+                   html += '<div class=\"talktext\">';
+                   html += '<p>' + result.name + '</p>';
+                   html += ' </div></div></div></div>';
+                   // If the row's id is odd.  
                 } else {
-                    
-              html += '<div class=\"row\">';
-                
-              html += '<div class=\"col-xs-10\">';
-                
-              html += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
-                
-              html += '<div class=\"talktext1\">';   
-                
-              html += '<p>' + result.name + '</p>';
-                
-              html += ' </div></div></div>';
-                    
-              html += '<div class=\"col-xs-2\">';
-                
-              html +=  '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-right-2\"  /></a>';  
-                
-              html += '</div>';
-    
-              html += '</div>';
-             
+                   html += '<div class=\"row\">';
+                   html += '<div class=\"col-xs-10\">';
+                   html += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
+                   html += '<div class=\"talktext1\">';
+                   html += '<p>' + result.name + '</p>';
+                   html += ' </div></div></div>';
+                   html += '<div class=\"col-xs-2\">';
+                   html += '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-right-2\"  /></a>';
+                   html += '</div>';
+                   html += '</div>';
                 }
-                
-            }
-      
-            
-            
-            
-     
-            // If lastTimeIDzeroTest is 1, implying the lastTimeID is zero...
-            if (lastTimeIDzeroTest === 1) {
-                
+             }
+             // If lastTimeIDzeroTest is 1, implying the lastTimeID is zero...
+             if ( lastTimeIDzeroTest === 1 ) {
                 // Set lastTimeIDzeroTest to 2 so that next time the function runs, we know that lastTimeID is no longer zero. Prepend nothing to the page.
                 lastTimeIDzeroTest = 2;
-                
-            } else {
-                
-                
+             } else {
                 // Return and prepend just parsed json from the database to the page. 
-                var new_items = $(html).hide();
-                
-                $('#areas2').prepend(new_items);
-
-                new_items.show('normal');
-                
-    
-            }
-          
-            
-            // After the function runs successfully, run the function again after some milliseconds.
-            setTimeout(startPostLoop, 5000); 
-            
-            
-        }
-        
-        
-        });
-        
-        }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+                var new_items = $( html ).hide();
+                $( '#areas2' ).prepend( new_items );
+                new_items.show( 'normal' );
+             }
+             // After the function runs successfully, run the function again after some milliseconds.
+             setTimeout( startPostLoop, 1000 );
+          }
+       } );
+    }
     
     
     
     // Retrive old rows from database.
-    function displayFromDatabasePagination(){
-        
-    
-            
-        $.ajax({
-        
-        url: "ajax.php",
-        type: "POST",
-        async: true,
-        data: {
-            
-            "felted": 1,
-            "laminate": firstTimeID
-                
-        }, 
-            
-            
-        success: function(dd) {
-            
-            var jsonData2 = JSON.parse(dd);
-            
-            var jsonLength2 = jsonData2.allposts1.length;
-            
-            var html2 = "";
-            
-            
-           for (var i2 = 0; i2 < jsonLength2; i2++) {
-                
-              var result2 = jsonData2.allposts1[i2];
-                
-              firstTimeID = result2.id;
-               
-              html2 += '<div class=\"row\">';
-                
-              html2 += '<div class=\"col-xs-2\">';
-                
-              html2 +=  '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-left-1\"  /></a>';  
-                
-              html2 += '</div>';
-                
-              html2 += '<div class=\"col-xs-10\">';
-                
-              html2 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-                
-              html2 += '<div class=\"talktext\">';   
-                
-              html2 += '<p>' + result2.id + " () " + result2.name + '</p>';
-                
-              html2 += ' </div></div></div></div>';    
-      
-           }
-      
-        
-          
-          $('#areas2').append(html2);
-    
-            
-            
-            
-        }
-        
-        
-        });
-        
-        }
-    
-    
-    
-    
-    
-    
-                              var dosome2 = function(ee, slateslate, name1name1) {
-                  //    console.log("ijik");
-                             sendChatData(ee, slateslate, name1name1);
-                   //  alert(slateslate);
-  
-};
-    
-    
-    
-    
-    function sendChatData(e, slate, name1){
-        
-        
-        
-     
-                  var dosome = function(data) {
-                      
-                      $("#" + data).html("sure");
-  
-};
-        
-        
-        
-        
-        
-        
+    function displayFromDatabasePagination() {
+       $.ajax( {
+          url: "ajax.php",
+          type: "POST",
+          async: true,
+          data: {
+             "felted": 1,
+             "laminate": firstTimeID
+          },
+          success: function( dd ) {
+             var jsonData2 = JSON.parse( dd );
+             var jsonLength2 = jsonData2.allposts1.length;
+             var html2 = "";
+             for ( var i2 = 0; i2 < jsonLength2; i2++ ) {
+                var result2 = jsonData2.allposts1[ i2 ];
+                firstTimeID = result2.id;
+                html2 += '<div class=\"row\">';
+                html2 += '<div class=\"col-xs-2\">';
+                html2 += '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-left-1\"  /></a>';
+                html2 += '</div>';
+                html2 += '<div class=\"col-xs-10\">';
+                html2 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
+                html2 += '<div class=\"talktext\">';
+                html2 += '<p>' + result2.id + " () " + result2.name + '</p>';
+                html2 += ' </div></div></div></div>';
+             }
+             $( '#areas2' ).append( html2 );
+          }
+       } );
+    }
 
-        
-        
-        
-               // Send the value of the box to the databse.
-          //  var name = $("#name").val();
-            
-            var nameTrim = $("#name").val().trim();
-            
-            
-            // If the value of the chat box is not empty...
-            if (nameTrim != "") {
-            
-                 // After submitting, clear the chat box.
-                $("#name").val(""); 
-                 e.preventDefault();
-                
-             //Submit the form to the databse.
-             $.ajax({
-        
+    
+    
+    
+    function sendChatData( e, slate, name1 ) {
+       var dosome = function( data ) {
+          $( "#" + data ).html( "sure" );
+       };
+       var nameTrim = $( "#name" ).val().trim();
+       // If the value of the chat box is not empty...
+       if ( nameTrim != "" ) {
+          // After submitting, clear the chat box.
+          $( "#name" ).val( "" );
+          e.preventDefault();
+          //Submit the form to the database.
+          $.ajax( {
              url: "ajax.php",
              type: "POST",
              async: true,
              data: {
-                 
-               "done": 1,
-               "name": name1
+                "done": 1,
+                "name": name1
              },
-                 
-                 
-                 
-
-            
-           success: function(data) {
-               
-               
-              
-                 
-             //   $("#" + lam).html(data);
-                  
-                 if (data == 23) {
-                 dosome(slate);
-                  //   clearInterval(myVar);
-                // 
-                // $( '#target').html( resp.people[0].name );  
-                    // $("#" + lam).html("Hello <b>world</b>!"); 
-                   //  ty = 45;
-                 } else {
-
-                     
-                 //  var myVar =  setInterval(function(){ dosome2(e, slate, name1) }, 3000);
-                     
-               //  console.log("ijik");
-                   
-               
-                 
-                 }
-                    
-                 
+             success: function( data ) {
+                if ( data == 23 ) {
+                   dosome( slate );
+                } else {}
                 // After submitting, clear the chat box.
-                $("#name").val(""); 
-                 
-                 // When enter is clicked, do not move to the next line.
-             e.preventDefault();
-            
-             }, 
-    complete: function() {
-        // alert("#" + lam);
-
-          if (ty == 45 ) {
-// alert(ty + " " + lam);
-      // $("#" + lam).html("Hello <b>world</b>!"); 
-        }    
-    },
-                 
-                    error : function(xhr, textStatus, errorThrown ) {
-
-  // alert("error");
-                $.ajax(this);
-              return;
-
-        if (textStatus == 'timeout') {
-        
-        }
-        if (xhr.status == 500) {
-            //handle error
-        } else {
-            //handle error
-        }
-    }
-                 
- /*        error: function() {
-        // alert("#" + lam);
-
-                   // dosome2(e, slate, name1);
-     
-                
-       
-    } */          
-                 
-                 
-                 
-        
-             }); } else {
-                 
-                  $("#name").val(""); 
-                 
+                $( "#name" ).val( "" );
+                // When enter is clicked, do not move to the next line.
+                e.preventDefault();
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                $.ajax( this );
+                return;
              }
-       
-        // $("#" + lam).html("Hello <b>world</b>!");    
-   //  var data = "jnj";
-                         
-
-        
-    }
-    
-    
-    
-    
-    
-    
-     function sendAppend(e){
-        
-        
-        
-               // Send the value of the box to the databse.
-            var name = $("#name").val();
-            
-            var nameTrim = $("#name").val().trim();
-            
-           
-            // If the value of the chat box is not empty...
-            if (nameTrim != "") {
-
-                var html3 = '';
-                
-              html3 += '<div class=\"row\">';
-                
-              html3 += '<div class=\"col-xs-2\">';
-                
-              html3 +=  '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-left-1\"  /></a>';  
-                
-              html3 += '</div>';
-                
-              html3 += '<div class=\"col-xs-10\">';
-                
-              html3 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-                
-              html3 += '<div class=\"talktext\">';   
-                
-              html3 += '<p>' + name + '</p><span id=\"' + lam + '\"></span>';
-                
-              html3 += ' </div></div></div></div>'; 
-                
-                
-                
-                     // Return and prepend just parsed json from the database to the page. 
-                var new_items1 = $(html3).hide();
-                
-                $('#areas2').prepend(new_items1);
-
-                new_items1.show('fast');
-                
-                
-                 //         setTimeout(sendChatData(e, lam, name), 5000000);   
-              sendChatData(e, lam, name);
-                
-                lam = lam + lam;
-             
-         } 
-         
-         
-        
+          } );
+       } else {
+          $( "#name" ).val( "" );
+       }
     }
 
-
- 
+    
+    
+    
+    function sendAppend( e ) {
+       var name = $( "#name" ).val();
+       var nameTrim = $( "#name" ).val().trim();
+       // If the value of the chat box is not empty...
+       if ( nameTrim != "" ) {
+          var html3 = '';
+          html3 += '<div class=\"row\">';
+          html3 += '<div class=\"col-xs-2\">';
+          html3 += '<a><img src=\"tumblr_oonx42GBY31tl2cbeo1_500.jpg\" class=\"chat-left-1\"  /></a>';
+          html3 += '</div>';
+          html3 += '<div class=\"col-xs-10\">';
+          html3 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
+          html3 += '<div class=\"talktext\">';
+          html3 += '<p>' + name + '</p><span id=\"' + lam + '\"></span>';
+          html3 += ' </div></div></div></div>';
+          // Return and prepend just parsed json from the database to the page. 
+          var new_items1 = $( html3 ).hide();
+          $( '#areas2' ).prepend( new_items1 );
+          new_items1.show( 'fast' );
+          sendChatData( e, lam, name );
+          lam = lam + lam;
+       }
+    }
     
 </script>   
