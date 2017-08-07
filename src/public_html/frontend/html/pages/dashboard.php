@@ -202,6 +202,8 @@
                     
                 
                                             <div id="areas2">
+                                                
+                                                              
                                                
                                                 
                                            <!--     <div class="row">
@@ -337,92 +339,24 @@
                     </div>
                    
 
-                    
-                <div>
-                    
-                    
-                    
-                    
-                  
-                <div class="col-xs-1">
-                    
-                    
-                <div>
-                    
-                     <img src="a.jpg" width="70" height="70" class="post-owner-img" />
-                    
-                     
-                    
-                </div>    
-                
-                
-                </div>
-                
-                
-                
-                
-                <div class="col-xs-11">
-                    
-                   
-                    <p class="post-username">bobdylan</p>
-                    
-                
-                    <img src="tumblr_oonx42GBY31tl2cbeo1_500.jpg" class="post-img-1" />
-                
-                </div>
-                
-                  
-                    
-                    
-                </div>  
+
                     
                  
-                    
-                    
-                    
-                    
-                            
-                    
-                <div>
-                    
-                  
-                <div class="col-xs-1">
-                    
-                    
-                <div>
-                    
-                     <img src="a.jpg" width="70" height="70" class="post-owner-img"  />
-                    
-                     
-                    
-                </div>    
-                
-                
-                </div>
-                
-                
-                
-                
-                <div class="col-xs-11" >
-                    
-                   
-                    <p class="post-username">atsunewjoint</p>
-                    
-                
-                    <img src="DF3UvKNVoAA9riU.jpg" class="post-img-1"  />
-                
-                </div>
-                
-                  
-                    
-                    
-                </div>  
-                    
-                 
-                    <h1>gooo</h1>
+
                       
                         
-                
+                          <div style="display: table; margin: 0 auto;">
+                        
+                        
+                        <p id="loadagain" style="display: none;">Poor connection. Try again. <a>Here</a></p>
+                        
+                        
+                        
+                        <img id="loading" style="display: none;" width="60px" height="60px" src="loading.gif" />
+                    
+                    
+                    
+                    </div>
                 
                 </div>
                 
@@ -595,6 +529,7 @@
     $( window ).on( "scroll", function() {
        if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
           displayFromDatabasePagination();
+           
        }
     } );
     
@@ -610,6 +545,19 @@
           }
        } );
     } );
+    
+    
+    
+    
+
+    
+    
+    $('#loadagain').click(function() { 
+   displayFromDatabasePagination();
+           
+    return false; // prevent default
+  });
+    
     
     
     
@@ -697,7 +645,11 @@
              }
              // After the function runs successfully, run the function again after some milliseconds.
              setTimeout( startPostLoop, 1000 );
-          }
+          }, //error after here.
+           error: function( xhr, textStatus, errorThrown ) {
+                $.ajax( this );
+                return;
+             }
        } );
     }
     
@@ -714,6 +666,10 @@
              "laminate": firstTimeID
           },
           success: function( dd ) {
+              
+             
+             $('#loadagain').hide();
+              $('#loading').hide();
              var jsonData2 = JSON.parse( dd );
              var jsonLength2 = jsonData2.allposts1.length;
              var html2 = "";
@@ -731,8 +687,16 @@
                 html2 += ' </div></div></div></div>';
              }
              $( '#areas2' ).append( html2 );
-          }
+          },
+            error: function( xhr, textStatus, errorThrown ) {
+               
+               $('#loading').hide();
+                $('#loadagain').show();
+                
+             }
        } );
+        
+        $('#loading').show();
     }
 
     
