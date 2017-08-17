@@ -232,19 +232,92 @@ function login_function(username, password1) {
    
     $.ajax({
         
-       data: {"login": 1, "username": username, "password1": password1},
+       data: {"login": 1, "username": username, "password": password1},
        dataType: 'text',
-       url: 'sign_in.php'
+       url: '../../../backend/sign_in.php',
+       type: "POST"
         
     }).done(function(data) {
         
-       // If successful
-       alert(data);
+        
+            if (data == 2) {
+                
+                    $("#loginerror").hide(0);    
+             
+                    $("#loginerror").show(300);
+        
+                    $("#loginerror").html("Wrong credentials. Try again.");
+                
+                
+            } else if (data == 3) {
+                
+                
+                    $("#loginerror").hide(0);    
+             
+                    $("#loginerror").show(300);
+        
+                    $("#loginerror").html("The request has to be of type POST.");
+                
+                
+            } else if (data == 5) {
+                
+                
+                    $("#loginerror").hide(0);    
+             
+                    $("#loginerror").show(300);
+        
+                    $("#loginerror").html("Username and password fields cannot be shorter than 6 or bigger than 16 characters. Email cannot exceed 345 characters.");
+                
+                
+            } else if (data == 4) {
+                
+                
+                    $("#loginerror").hide(0);    
+             
+                    $("#loginerror").show(300);
+        
+                    $("#loginerror").html("Username and password can only be made up of numbers or letters.");
+                
+                
+            }    else  {
+                
+                
+                    var jsonLogin = JSON.parse( data );
+            
+                    var login_status =  jsonLogin[0];
+            
+                    var login_session_id =  jsonLogin[1];
+                
+                    if (login_status == 1) {
+                        
+                          window.location.href = "http://stackoverflow.com";
+                        
+                    } else {
+                        
+                       $("#loginerror").hide(0);    
+             
+                       $("#loginerror").show(300);
+        
+                       $("#loginerror").html("Poor connection. Try gain later.");
+                
+                        
+                    }
+                
+            }
+        
+        
+        
+        
+        
+        
         
     }).fail(function(jqXHR, textStatus, errorThrown) {
         
-       // If fail
-       console.log(textStatus + ': ' + errorThrown);
+                       $("#loginerror").hide(0);    
+             
+                       $("#loginerror").show(300);
+        
+                       $("#loginerror").html("Poor connection. Try gain later.");
         
     });
     
@@ -373,12 +446,13 @@ $("#signup").on("click", function() {
     
     if (login_is_alphanum_register  && both_fields_filled_register && login_length_check_register && passwords_equal) {
         
+        
         var email = $("#email").val();
         
         
         if ( email.trim().length == 0 ) {
             
-            sign_up_function(username, password1, null);
+            sign_up_function(username, password1, password2, null);
             
         } else {
             
@@ -386,7 +460,7 @@ $("#signup").on("click", function() {
             
                 if (real_email) {
         
-                    sign_up_function(username, password1, email);
+                    sign_up_function(username, password1, password2, email);
         
                  } else {
         
@@ -413,18 +487,19 @@ $("#signup").on("click", function() {
 
 
     
-function sign_up_function(username, password1, email) {
+function sign_up_function(username, password1, password2, email) {
    
     $.ajax({
         
         
-       data: {"register": 1, "username": username, "password1": password1, "email": email},
+       data: {"register": 1, "username": username, "password1": password1, "password2": password2, "email": email},
        dataType: 'text',
        url: '../../../backend/sign_up.php',
        type: "POST"
         
         
     }).done(function(data) {
+        
    
             if (data == 2) {
                 
@@ -455,7 +530,37 @@ function sign_up_function(username, password1, email) {
                     $("#loginerror").html("Username and password fields cannot be shorter than 6 or bigger than 16 characters. Email cannot exceed 345 characters.");
                 
                 
-            } else  {
+            } else if (data == 4) {
+                
+                
+                    $("#loginerror").hide(0);    
+             
+                    $("#loginerror").show(300);
+        
+                    $("#loginerror").html("Username and password can only be made up of numbers or letters.");
+                
+                
+            }  else if (data == 6) {
+                
+                
+                    $("#loginerror").hide(0);    
+             
+                    $("#loginerror").show(300);
+        
+                    $("#loginerror").html("You entered an invalid email address.");
+                
+                
+            }   else if (data == 7) {
+                
+                
+                    $("#loginerror").hide(0);    
+             
+                    $("#loginerror").show(300);
+        
+                    $("#loginerror").html("Passwords have to be identical.");
+                
+                
+            }   else  {
                 
                 
                     var jsonRegister = JSON.parse( data );
@@ -466,9 +571,19 @@ function sign_up_function(username, password1, email) {
                 
                     if (register_status == 1) {
                         
-                        alert("user created");
                         
-                        window.location.replace("https://stackoverflow.com/questions/503093/how-to-redirect-to-another-webpage-in-javascript-jquery");
+                        window.location.href = "http://stackoverflow.com";
+    
+                        
+                    } else {
+                        
+                        
+                       $("#loginerror").hide(0);    
+             
+                       $("#loginerror").show(300);
+        
+                       $("#loginerror").html("Poor connection. Try gain later.");
+                        
                     }
                 
             }
@@ -477,8 +592,11 @@ function sign_up_function(username, password1, email) {
         
     }).fail(function(jqXHR, textStatus, errorThrown) {
         
-       // If fail
-       console.log(textStatus + ': ' + errorThrown);
+                       $("#loginerror").hide(0);    
+             
+                       $("#loginerror").show(300);
+        
+                       $("#loginerror").html("Poor connection. Try gain later.");
         
     });
     

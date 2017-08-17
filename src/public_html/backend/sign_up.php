@@ -36,15 +36,46 @@ if (isset($_POST['register']))  {
   
     
     
-         if (ctype_alnum($user_input) || ctype_alnum($_POST['password1']) || ctype_alnum($_POST['email'])) {
+         if (ctype_alnum($user_input)) {
         
         
          } else {
 
-            echo 4;
+                  echo 4;
              
-            exit();
+                  exit();
        
+         }
+    
+    
+    
+    
+    
+    
+        if (ctype_alnum($_POST['password1'])) {
+        
+        
+         } else {
+
+                  echo 4;
+             
+                  exit();
+       
+         }
+    
+    
+    
+    
+    
+    
+    
+         if ($_POST['password1'] != $_POST['password2']) {
+        
+        
+                 echo 7;
+             
+                 exit();
+        
          }
     
     
@@ -65,8 +96,9 @@ if (isset($_POST['register']))  {
         
         {
         
-            echo 5;
-            exit();
+              echo 5;
+            
+              exit();
         
         }
     
@@ -75,27 +107,22 @@ if (isset($_POST['register']))  {
         
         
         if (strlen(trim($_POST['email'])) == 0 ) {
-        
-        
-        
-        
+    
         
         }  else {
         
         
-            if (!filter_var($email_input, FILTER_VALIDATE_EMAIL) === false) {
+               if (!filter_var($email_input, FILTER_VALIDATE_EMAIL) === false) {
         
-        
-        
-        } else {
+               } else {
            
-           echo 6;
-           exit();
+                    echo 6;
+                   
+                    exit();
         
-       }
+               }
         
-        
-       }
+        }
         
         
         

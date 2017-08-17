@@ -12,38 +12,71 @@ $user_input = '';
 
 if(request_is_post()) {
    
-if (isset($_POST['submit']))  {
+if (isset($_POST['login']))  {
     
     
 
  $user_input = $_POST['username'];
     
     
+    
   
- $space = ' ';
-    
- $equal_sign = '=';
-    
- $single_quote = "'";  
-    
-    
+         if (ctype_alnum($user_input)) {
+        
+        
+         } else {
 
- does_it_contain($user_input, $space, $equal_sign, $single_quote, 'Username or password cannot contain a space, equal sign or single quote.', '../login');
+                  echo 4;
+             
+                  exit();
+       
+         }
     
- does_it_contain($_POST['password'], $space, $equal_sign, $single_quote, 'Username or password cannot contain a space, equal sign or single quote.', '../login');
+    
+    
+    
+    
+    
+        if (ctype_alnum($_POST['password'])) {
+        
+        
+         } else {
+
+                  echo 4;
+             
+                  exit();
+       
+         }
    
     
-  
- check_emptiness($user_input, '../login', 'All fields have to be filled. Please try again.');
-    
- check_emptiness($_POST['password'], '../login', 'All fields have to be filled. Please try again.');
-    
-    
-    
- check_lenght($user_input, 7, 30, 'The username and password cannot be smaller than 7 characters or bigger than 30.', '../login');
-    
- check_lenght($_POST['password'], 7, 30, 'The username and password cannot be smaller than 7 characters or bigger than 30.', '../login');    
 
+    
+    
+    
+    
+    
+        if ( 
+        
+        (strlen(trim($_POST['username'])) > 16) || 
+        
+        (strlen(trim($_POST['username'])) < 6) ||
+        
+        (strlen(trim($_POST['password'])) > 16) ||
+        
+        (strlen(trim($_POST['password'])) < 6) )
+        
+        {
+        
+              echo 5;
+            
+              exit();
+        
+        }
+    
+    
+    
+    
+    
     
      
  $founduser = $user->does_user_exist($user_input); 
@@ -60,30 +93,21 @@ if (isset($_POST['submit']))  {
              
     
                if (password_verify($_POST['password'], $row['password'])) { 
-         
-               $_SESSION['admin_id'] = $row['id'];
-             
-             
-                    if (isset($_SESSION['realredirect1'])) {
-             
-                    redirect_to($_SESSION['realredirect1']); 
-             
-                    }
-             
-                    else { 
-                                
-                    redirect_to('../login');     
-                                
-                    }
+                   
+                   
+               $register_array = array("status"=> 1, "id"=> $row['id']);     
+    
+               echo json_encode(array_values($register_array));
              
 
                }
      
                else {
          
-               alert_note('Login failed. Please try again with the right credentials.'); 
-             
-               redirect_to('../login'); 
+                      echo 2;
+     
+                      exit();
+     
                  
                }
      
@@ -93,9 +117,11 @@ if (isset($_POST['submit']))  {
      
 }  else {
     
-         alert_note('Login failed. Please try again with the right credentials.');
      
-         redirect_to('../login'); 
+       echo 2;
+     
+       exit();
+     
      
 }
     
@@ -104,13 +130,13 @@ if (isset($_POST['submit']))  {
     
 } else  {
     
-     alert_note('Please stop trying to hack the site. Thanks a lot.');
     
-     redirect_to('../login'); 
+       echo 3;
+       exit();
     
 }    
 
 
-redirect_to('../login');
+
 
 ?>
